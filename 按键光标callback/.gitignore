@@ -1,0 +1,32 @@
+# ==========================================
+# 过滤掉 Keil 编译生成的庞大垃圾缓存（最占空间）
+# ==========================================
+*.o
+*.d
+*.crf
+*.axf
+*.htm
+*.lnp
+*.sct
+*.lst
+*.map
+*.dep
+*.py
+*.txt
+*.txt.*
+
+# 过滤掉整个编译输出文件夹
+OBJ/
+Listings/
+Objects/
+DebugConfig/
+
+# 过滤掉 Keil 自动生成的本地用户配置文件（换台电脑打开会自动重建）
+*.uvguix.*
+*.uv2.bak
+*.uvoptx.bak
+.mxproject
+
+# 过滤掉系统多余的隐藏文件
+.DS_Store
+Thumbs.db
