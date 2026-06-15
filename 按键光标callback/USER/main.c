@@ -52,28 +52,28 @@ int main(void)
                 if(cursor_y >= 16)
 									{ 
 										cursor_y -= 16; 
-										LCD_ShowString(30, 120, 200, 24, 24, "WKUP Pressed ");
+										
 									} break;
                 
             case KEY1_PRES: 
                 if(cursor_y < (lcddev.height - 16))
 										{
 											cursor_y += 16; 
-											LCD_ShowString(30, 120, 200, 24, 24, "KEY1 Pressed ");
+											
 										} break;
                 
             case KEY2_PRES: 
                 if(cursor_x >= 8)
 										{ 	
 											cursor_x -= 8; 
-											LCD_ShowString(30, 120, 200, 24, 24, "KEY2 Pressed ");
+											
 										} break;
                 
             case KEY0_PRES:
                 if(cursor_x < (lcddev.width - 8)) 
 										{ 
 											cursor_x += 8; 
-											LCD_ShowString(30, 120, 200, 24, 24, "KEY0 Pressed ");
+											
 										} break;
 					}
         

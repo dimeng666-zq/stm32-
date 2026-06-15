@@ -87,7 +87,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) 
         {
-            key = WKUP_PRES; 
+            key = WKUP_PRES;
+						POINT_COLOR = BLUE;
+						LCD_ShowString(30, 120, 200, 24, 24, "WKUP Pressed ");					
         }
     }
     else if(GPIO_Pin == GPIO_PIN_2) // 
@@ -95,6 +97,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_2) == GPIO_PIN_RESET) 
         {
             key = KEY2_PRES;
+						POINT_COLOR = BLUE;
+						LCD_ShowString(30, 120, 200, 24, 24, "KEY2 Pressed ");
         }
     }
     else if(GPIO_Pin == GPIO_PIN_3) // 
@@ -102,12 +106,17 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_3) == GPIO_PIN_RESET) 
         {
             key = KEY1_PRES;
+						POINT_COLOR = BLUE;
+						LCD_ShowString(30, 120, 200, 24, 24, "KEY1 Pressed ");
         }
     }
     else if(GPIO_Pin == GPIO_PIN_4) // 
         if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4) == GPIO_PIN_RESET) 
         {
             key = KEY0_PRES;
+						POINT_COLOR = BLUE;
+						LCD_ShowString(30, 120, 200, 24, 24	, "KEY0 Pressed ");
         }
+				
 }
 

@@ -558,7 +558,8 @@ extern u8 key;
 void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin)
 {
   	/* EXTI line interrupt detected */
-  delay_ms(20); 
+  //HAL_delay(20);
+	delay_ms(20); 
 	if (__HAL_GPIO_EXTI_GET_IT(GPIO_Pin) != 0x00u)
   {
    if(GPIO_Pin == GPIO_PIN_0) // 
