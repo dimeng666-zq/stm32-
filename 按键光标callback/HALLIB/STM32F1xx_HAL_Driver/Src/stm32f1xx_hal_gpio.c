@@ -544,12 +544,51 @@ HAL_StatusTypeDef HAL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
   * @param  GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
+
+
+#include "delay.h"
+#include "led.h"
+#include "key.h"
+#include "main.h"
+#include "lcd.h"
+
+
+extern u8 key;
+
 void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin)
 {
-  /* EXTI line interrupt detected */
-  if (__HAL_GPIO_EXTI_GET_IT(GPIO_Pin) != 0x00u)
+  	/* EXTI line interrupt detected */
+  delay_ms(20); 
+	if (__HAL_GPIO_EXTI_GET_IT(GPIO_Pin) != 0x00u)
   {
-    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
+   if(GPIO_Pin == GPIO_PIN_0) // 
+    {
+        if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) 
+        {
+            key = WKUP_PRES; 
+        }
+    }
+    else if(GPIO_Pin == GPIO_PIN_2) // 
+    {
+        if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_2) == GPIO_PIN_RESET) 
+        {
+            key = KEY2_PRES;
+        }
+    }
+    else if(GPIO_Pin == GPIO_PIN_3) // 
+    {
+        if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_3) == GPIO_PIN_RESET) 
+        {
+            key = KEY1_PRES;
+        }
+    }
+    else if(GPIO_Pin == GPIO_PIN_4) // 
+        if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4) == GPIO_PIN_RESET) 
+        {
+            key = KEY0_PRES;
+        }
+
+		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
     HAL_GPIO_EXTI_Callback(GPIO_Pin);
   }
 }

@@ -38,34 +38,49 @@ int main(void)
   LCD_ShowString(30, 30, 200, 16, 16, "Key Control Cursor:"); //画提示语 
 
 	POINT_COLOR = RED;                  // 光标颜色
-  LCD_ShowChar(cursor_x, cursor_y, '1', 16, 0); //（100，100）画1作为光标
+  LCD_ShowChar(cursor_x, cursor_y, '1', 24, 0); //（100，100）画1作为光标
 	
-	/* ------ main.c ? while(1) ?? ------ */
 
 	while(1)
 	{
 			if(key != 0)
 			{
-        LCD_ShowChar(cursor_x, cursor_y, ' ', 16, 0);       
+        LCD_ShowChar(cursor_x, cursor_y, ' ', 24, 0);       
 					switch(key)
 					{
             case WKUP_PRES: 
-                if(cursor_y >= 16) { cursor_y -= 16; } break;
+                if(cursor_y >= 16)
+									{ 
+										cursor_y -= 16; 
+										LCD_ShowString(30, 120, 200, 24, 24, "WKUP Pressed ");
+									} break;
                 
             case KEY1_PRES: 
-                if(cursor_y < (lcddev.height - 16)) { cursor_y += 16; } break;
+                if(cursor_y < (lcddev.height - 16))
+										{
+											cursor_y += 16; 
+											LCD_ShowString(30, 120, 200, 24, 24, "KEY1 Pressed ");
+										} break;
                 
             case KEY2_PRES: 
-                if(cursor_x >= 8) { cursor_x -= 8; } break;
+                if(cursor_x >= 8)
+										{ 	
+											cursor_x -= 8; 
+											LCD_ShowString(30, 120, 200, 24, 24, "KEY2 Pressed ");
+										} break;
                 
             case KEY0_PRES:
-                if(cursor_x < (lcddev.width - 8)) { cursor_x += 8; } break;
+                if(cursor_x < (lcddev.width - 8)) 
+										{ 
+											cursor_x += 8; 
+											LCD_ShowString(30, 120, 200, 24, 24, "KEY0 Pressed ");
+										} break;
 					}
         
 
         key = 0; 
         POINT_COLOR = RED;
-        LCD_ShowChar(cursor_x, cursor_y, '1', 16, 0);
+        LCD_ShowChar(cursor_x, cursor_y, '1', 24,0);
 			}   
     delay_ms(10);
 	}
