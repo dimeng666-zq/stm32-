@@ -4,6 +4,7 @@
 #include "key.h"
 #include "main.h"
 #include "lcd.h"
+#include "stm32f1xx_hal_gpio.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK STM32F103开发板
@@ -54,6 +55,7 @@ void EXTI_Init(void)
 
 
 //中断服务函数
+/*
 void EXTI0_IRQHandler(void)
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);		//调用中断处理公用函数
@@ -73,6 +75,7 @@ void EXTI4_IRQHandler(void)
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);		//调用中断处理公用函数
 }
+*/
 
 //中断服务程序中需要做的事情
 //在HAL库中所有的外部中断服务函数都会调用此函数
@@ -119,4 +122,72 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         }
 				
 }
+
+
+//底层中断服务函数
+//UNTI0
+void EXTI0_IRQHandler(void)
+{
+    //delay_ms(20);     
+    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_0) != RESET) 
+    {
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) 
+        {
+            key = WKUP_PRES; //           
+        }       
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_0); 
+				HAL_GPIO_EXTI_Callback(GPIO_PIN_0);    
+		}
+}
+
+//UNTI2
+void EXTI2_IRQHandler(void)
+{
+    //delay_ms(20);     
+    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_2) != RESET) 
+    {
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) == GPIO_PIN_SET) 
+        {
+            key = KEY2_PRES; //           
+        }       
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_2); 
+				HAL_GPIO_EXTI_Callback(GPIO_PIN_2);    
+		}
+}
+
+//UNTI3
+void EXTI3_IRQHandler(void)
+{
+    //delay_ms(20);     
+    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_3) != RESET) 
+    {
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == GPIO_PIN_SET) 
+        {
+            key = KEY1_PRES;//           
+        }       
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_3); 
+				HAL_GPIO_EXTI_Callback(GPIO_PIN_3);    
+		}
+}
+
+//UNTI4
+void EXTI4_IRQHandler(void)
+{
+    //delay_ms(20);     
+    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET) 
+    {
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4) == GPIO_PIN_SET) 
+        {
+            key = KEY0_PRES; //           
+        }       
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4); 
+				HAL_GPIO_EXTI_Callback(GPIO_PIN_4);    
+		}
+}
+
+
+
+
+
+
 
