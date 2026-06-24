@@ -4,6 +4,7 @@
 #include "led.h"
 #include "lcd.h"
 #include "key.h"
+#include "exti.h"
 /************************************************
  ALIENTEK 战舰STM32F103开发板 实验13
  LCD显示实验-HAL库函数版
@@ -30,20 +31,20 @@ int main(void)
 	uart_init(115200);					//初始化串口
 	LED_Init();							//初始化LED	
 	KEY_Init();
-	LCD_Init();
+	//LCD_Init();
 	EXTI_Init();
 	
-	LCD_Clear(WHITE);                   //全屏刷白 
+	/*LCD_Clear(WHITE);                   //全屏刷白 
   POINT_COLOR = BLUE;                 //画笔颜色为蓝色 
   LCD_ShowString(30, 30, 200, 16, 16, "Key Control Cursor:"); //画提示语 
 
 	POINT_COLOR = RED;                  // 光标颜色
-  LCD_ShowChar(cursor_x, cursor_y, '1', 24, 0); //（100，100）画1作为光标
+  LCD_ShowChar(cursor_x, cursor_y, '1', 24, 0);*/ //（100，100）画1作为光标
 	
 
 	while(1)
 	{
-			if(key != 0)
+			/*if(key != 0)
 			{
         LCD_ShowChar(cursor_x, cursor_y, ' ', 24, 0);       
 					switch(key)
@@ -81,7 +82,7 @@ int main(void)
         key = 0; 
         POINT_COLOR = RED;
         LCD_ShowChar(cursor_x, cursor_y, '1', 24,0);
-			}   
+			}*/   
     delay_ms(10);
 	}
 }

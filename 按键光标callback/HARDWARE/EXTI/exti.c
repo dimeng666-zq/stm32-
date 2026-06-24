@@ -82,26 +82,30 @@ void EXTI4_IRQHandler(void)
 //GPIO_Pin:中断引脚号
 
 extern u8 key; // 
+extern UART_HandleTypeDef UART1_Handler; // usart.c中全局串口句柄
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    //delay_ms(20); 
+    static u8 secret_code = 0x5A;;
+		delay_ms(20); 
     if(GPIO_Pin == GPIO_PIN_0) // 
     {
         if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) 
         {
             key = WKUP_PRES;
-						POINT_COLOR = BLUE;
-						LCD_ShowString(30, 120, 200, 24, 24, "WKUP Pressed ");					
-        }
+						//POINT_COLOR = BLUE;
+						//LCD_ShowString(30, 120, 200, 24, 24, "WKUP Pressed ");					
+						HAL_UART_Transmit(&UART1_Handler, &secret_code, 1, 1000);
+						//HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
+				}
     }
     else if(GPIO_Pin == GPIO_PIN_2) // 
     {
         if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_2) == GPIO_PIN_RESET) 
         {
             key = KEY2_PRES;
-						POINT_COLOR = BLUE;
-						LCD_ShowString(30, 120, 200, 24, 24, "KEY2 Pressed ");
+						//POINT_COLOR = BLUE;
+						//LCD_ShowString(30, 120, 200, 24, 24, "KEY2 Pressed ");
         }
     }
     else if(GPIO_Pin == GPIO_PIN_3) // 
@@ -109,16 +113,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_3) == GPIO_PIN_RESET) 
         {
             key = KEY1_PRES;
-						POINT_COLOR = BLUE;
-						LCD_ShowString(30, 120, 200, 24, 24, "KEY1 Pressed ");
+						//POINT_COLOR = BLUE;
+						//LCD_ShowString(30, 120, 200, 24, 24, "KEY1 Pressed ");
         }
     }
     else if(GPIO_Pin == GPIO_PIN_4) // 
         if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4) == GPIO_PIN_RESET) 
         {
             key = KEY0_PRES;
-						POINT_COLOR = BLUE;
-						LCD_ShowString(30, 120, 200, 24, 24	, "KEY0 Pressed ");
+						//POINT_COLOR = BLUE;
+						//LCD_ShowString(30, 120, 200, 24, 24	, "KEY0 Pressed ");
         }
 				
 }

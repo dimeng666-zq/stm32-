@@ -122,31 +122,40 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 	}
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	if(huart->Instance==USART1)//如果是串口1
-	{
-		if((USART_RX_STA&0x8000)==0)//接收未完成
-		{
+			void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+			{
+			if(huart->Instance==USART1)//如果是串口1
+			{
+			if(aRxBuffer[0] == 'E')//
+			{
+			aRxBuffer[0]=0;
+			printf("\r\n666\r\n");//
+			//HAL_UART_Receive_IT(&UART1_Handler, (uint8_t *)aRxBuffer, RXBUFFERSIZE);
+			return;
+			}
+
+			if((USART_RX_STA&0x8000)==0)//接收未完成
+			{
 			if(USART_RX_STA&0x4000)//接收到了0x0d
 			{
-				if(aRxBuffer[0]!=0x0a)USART_RX_STA=0;//接收错误,重新开始
-				else USART_RX_STA|=0x8000;	//接收完成了 
+			if(aRxBuffer[0]!=0x0a)USART_RX_STA=0;//接收错误,重新开始
+			else USART_RX_STA|=0x8000;	//接收完成了 
 			}
 			else //还没收到0X0D
 			{	
-				if(aRxBuffer[0]==0x0d)USART_RX_STA|=0x4000;
-				else
-				{
-					USART_RX_BUF[USART_RX_STA&0X3FFF]=aRxBuffer[0] ;
-					USART_RX_STA++;
-					if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;//接收数据错误,重新开始接收	  
-				}		 
+			if(aRxBuffer[0]==0x0d)USART_RX_STA|=0x4000;
+			else
+			{
+			USART_RX_BUF[USART_RX_STA&0X3FFF]=aRxBuffer[0] ;
+			USART_RX_STA++;
+			if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;//接收数据错误,重新开始接收	  
+			}		 
 			}
-		}
+			}
 
-	}
-}
+
+			}
+			}
  
 //串口1中断服务程序
 void USART1_IRQHandler(void)                	
